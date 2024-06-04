@@ -1,0 +1,87 @@
+.FilmMenu {
+    text-align: center;
+}
+
+.films {
+    list-style-type: none;
+    margin: 30px;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 3rem;
+    transition: border-bottom 0.3s;
+    flex-wrap: wrap;
+}
+
+.films img {
+    width: 400px;
+    height: 500px;
+    border-radius: 20px;
+    transition: border 0.3s;
+    margin: 10px;
+}
+
+.films.dark {
+    border-bottom: 1px solid beige;
+}
+
+.films.light {
+    border-bottom: 1px solid black;
+}
+
+.films img.dark {
+    border: 1px solid white;
+}
+
+.films img.light {
+    border: 1px solid black;
+}
+
+.TextHit {
+    margin-top: 20px;
+    margin-left: 40px;
+    letter-spacing: 2px;
+    font-family: monospace, "Courier New";
+}
+
+.TextHit.dark {
+    color: white;
+}
+
+.TextHit.light {
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .films {
+        margin: 20px;
+        justify-content: center;
+    }
+
+    .films img {
+        width: 300px;
+        height: 400px;
+    }
+
+    .TextHit {
+        font-size: 1.5rem;
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 430px) {
+    .films {
+        margin: 10px;
+        justify-content: center;
+    }
+
+    .films img {
+        width: 200px;
+        height: 300px;
+    }
+
+    .TextHit {
+        font-size: 1.2rem;
+        margin-left: 10px;
+    }
+}

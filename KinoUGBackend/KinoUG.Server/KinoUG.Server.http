@@ -1,0 +1,6 @@
+@KinoUG.Server_HostAddress = http://localhost:5269
+
+GET {{KinoUG.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "xZsu01dd/deOC7S5LyXJhs58k0zwn/7GjXc9qtmaQAk=",
+  "Source": "KinoUG.Server",
+  "BasePath": "_content/KinoUG.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\kino\\KinoUgBackEnd\\kinoug.client\\kinoug.client.esproj",
+      "Version": 2,
+      "Source": "kinoug.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

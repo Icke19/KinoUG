@@ -1,0 +1,2 @@
+C:\Users\czare\source\repos\KinoUG\kinoug.client\obj\Debug\kinoug.client.esproj.CoreCompileInputs.cache
+C:\Users\kubak\Desktop\szkoła\4 semestr\kino\KinoUgBackEnd\kinoug.client\obj\Debug\kinoug.client.esproj.CoreCompileInputs.cache

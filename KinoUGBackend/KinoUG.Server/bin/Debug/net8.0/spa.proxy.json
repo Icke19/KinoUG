@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:5173",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\kino\\KinoUgBackEnd\\KinoUG.Server\\..\\kinoug.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

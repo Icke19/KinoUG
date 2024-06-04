@@ -1,0 +1,64 @@
+.koszyk {
+    margin: 100px auto;
+    background-color: #cdcccc;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.koszyk.dark {
+    background-color: #333;
+    color: #1e1e1e;
+}
+
+.koszyk h2 {
+    color: black;
+    font-size: 24px;
+    margin-bottom: 15px;
+    transition: color 0.3s;
+}
+
+.koszyk.dark h2 {
+    color: white;
+}
+
+.koszyk p {
+    color: black;
+    font-size: 18px;
+    margin: 15px 0;
+    transition: color 0.3s;
+}
+
+.koszyk.dark p {
+    color: white;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #004494;
+    transform: translateY(0);
+}
