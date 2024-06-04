@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using KinoUG.Server.Data;
 using KinoUG.Server.DTO;
-using KinoUG.Server.Helper;
 using KinoUG.Server.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace KinoUG.Server.Controllers
 {
-    
     public class MovieController : BaseApiController
     {
         private readonly DataContext _context;
@@ -21,16 +18,13 @@ namespace KinoUG.Server.Controllers
             _automapper = automapper;
         }
 
-
-        [Authorize(Roles = Roles.Admin)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMovies()
         {
-           var movies = await _context.Movies.ToListAsync();
+            var movies = await _context.Movies.ToListAsync();
             return _automapper.Map<List<MovieDTO>>(movies);
         }
 
-        
         [HttpPost]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> AddMovie(AddMovieDTO film)
@@ -40,17 +34,13 @@ namespace KinoUG.Server.Controllers
                 Title = film.Title,
                 Description = film.Description,
                 Image = film.Image
-
             };
-            
+
             _context.Movies.Add(movie);
-            
             await _context.SaveChangesAsync();
-   
 
             return Ok(film);
         }
-
 
         [HttpDelete("{id}")]
         [Authorize(Roles = Roles.Admin)]
@@ -79,12 +69,30 @@ namespace KinoUG.Server.Controllers
             return NoContent();
         }
 
+        [HttpGet("GetMoviesByIds")]
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByIds([FromQuery] int[] ids)
+        {
+            if (ids == null || ids.Length == 0)
+            {
+                return BadRequest("No IDs provided");
+            }
+
+            var movies = await _context.Movies
+                                       .Where(m => ids.Contains(m.Id))
+                                       .ToListAsync();
+
+            if (movies == null || movies.Count == 0)
+            {
+                return NotFound("Movies not found");
+            }
+
+            return _automapper.Map<List<MovieDTO>>(movies);
+        }
 
         [HttpPut("{id}")]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> UpdateMovie(int id, EditMovieDto updatedMovie)
         {
-
             var movie = await _context.Movies.FindAsync(id);
             if (movie == null)
             {
@@ -94,7 +102,6 @@ namespace KinoUG.Server.Controllers
             movie.Title = updatedMovie.Title;
             movie.Description = updatedMovie.Description;
             movie.Image = updatedMovie.Image;
-           
 
             _context.Entry(movie).State = EntityState.Modified;
 
@@ -121,7 +128,5 @@ namespace KinoUG.Server.Controllers
         {
             return _context.Movies.Any(e => e.Id == id);
         }
-
-
     }
 }

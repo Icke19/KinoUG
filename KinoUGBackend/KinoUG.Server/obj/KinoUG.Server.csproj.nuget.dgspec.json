@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\czare\\source\\repos\\KinoUG\\KinoUG.Server\\KinoUG.Server.csproj": {}
+    "/Users/patryksekielewski/MojeKinoUGProjekt/KinoUGBackend/KinoUG.Server/KinoUG.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\czare\\source\\repos\\KinoUG\\KinoUG.Server\\KinoUG.Server.csproj": {
+    "/Users/patryksekielewski/MojeKinoUGProjekt/KinoUGBackend/KinoUG.Server/KinoUG.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\czare\\source\\repos\\KinoUG\\KinoUG.Server\\KinoUG.Server.csproj",
+        "projectUniqueName": "/Users/patryksekielewski/MojeKinoUGProjekt/KinoUGBackend/KinoUG.Server/KinoUG.Server.csproj",
         "projectName": "KinoUG.Server",
-        "projectPath": "C:\\Users\\czare\\source\\repos\\KinoUG\\KinoUG.Server\\KinoUG.Server.csproj",
-        "packagesPath": "C:\\Users\\czare\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\czare\\source\\repos\\KinoUG\\KinoUG.Server\\obj\\",
+        "projectPath": "/Users/patryksekielewski/MojeKinoUGProjekt/KinoUGBackend/KinoUG.Server/KinoUG.Server.csproj",
+        "packagesPath": "/Users/patryksekielewski/.nuget/packages/",
+        "outputPath": "/Users/patryksekielewski/MojeKinoUGProjekt/KinoUGBackend/KinoUG.Server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\czare\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/patryksekielewski/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -119,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

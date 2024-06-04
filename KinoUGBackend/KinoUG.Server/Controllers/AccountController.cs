@@ -34,32 +34,30 @@ namespace KinoUG.Server.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
-            try
+            var user = new User
             {
-                var user = new User
-                {
-                    UserName = model.Email,
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    Email = model.Email
-                };
+                UserName = model.Email,
+                Name = model.Name,
+                Surname = model.Surname,
+                Email = model.Email
+            };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
-                if (!result.Succeeded)
-                {
-                    return new BadRequestObjectResult(result.Errors);
-                }
+            if (!result.Succeeded)
+            {
+                return new BadRequestObjectResult(result.Errors);
+            }
 
-                var assignRoleResult = await _userManager.AddToRoleAsync(user, Roles.User);
+            var assignRoleResult = await _userManager.AddToRoleAsync(user, Roles.User);
 
-                if (!assignRoleResult.Succeeded)
-                {
-                    return new BadRequestObjectResult(assignRoleResult.Errors);
-                }
+            if (!assignRoleResult.Succeeded)
+            {
+                return new BadRequestObjectResult(assignRoleResult.Errors);
+            }
 
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
 
             var htmlContent = GenerateConfirmationEmailHtml(user.Name, confirmationLink);
             var textContent = GenerateConfirmationEmailText(confirmationLink);
@@ -72,85 +70,58 @@ namespace KinoUG.Server.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Email sending failed: {ex.Message}");
             }
-                try
-                {
-                    await _emailService.SendEmailAsync(user.Email, "Confirm your email", $"Please confirm your account by clicking this link: <a href=\"{confirmationLink}\">link</a>");
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError, $"Email sending failed: {ex.Message}");
-                }
 
-                return Ok("Registration successful. Please check your email to confirm your account.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Registration failed: {ex.Message}");
-            }
+            return Ok("Registration successful. Please check your email to confirm your account.");
         }
 
         [HttpGet]
         [Route("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
-           try
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
             {
-                var user = await _userManager.FindByEmailAsync(email);
-                if (user == null)
-                {
-                    return BadRequest("Invalid email.");
-                }
-
-                var result = await _userManager.ConfirmEmailAsync(user, token);
-
-                if (result.Succeeded)
-                {
-                    return Ok("Email confirmed successfully!");
-                }
-
-                return BadRequest("Error confirming email.");
+                return BadRequest("Invalid email.");
             }
-            catch (Exception ex)
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Email confirmation failed: {ex.Message}");
+                return Ok("Email confirmed successfully!");
             }
+
+            return BadRequest("Error confirming email.");
         }
 
         [HttpPost]
         [Route("login")]
         public async Task<ActionResult> Login([FromBody] LoginDTO model)
         {
-            try
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null)
-                {
-                    return BadRequest(new { message = "Incorrect email or password." });
-                }
-
-                if (!await _userManager.IsEmailConfirmedAsync(user))
-                {
-                    return BadRequest(new { message = "Email not confirmed. Please check your inbox." });
-                }
-
-                var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-
-                if (!result.Succeeded)
-                {
-                    return BadRequest(new { message = "Incorrect email or password." });
-                }
-
-                HttpContext.Session.SetString("UserEmail", user.Email);
-                HttpContext.Session.SetString("UserPassword", model.Password);
-
-                var token = await _tokenService.GenerateJwtToken(user, TimeSpan.FromMinutes(600));
-
-                return Ok(new { Token = token });
+                return BadRequest(new { message = "Incorrect email or password." });
             }
-           catch (Exception ex)
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Login failed: {ex.Message}");
+                return BadRequest(new { message = "Email not confirmed. Please check your inbox." });
             }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "Incorrect email or password." });
+            }
+
+            HttpContext.Session.SetString("UserEmail", user.Email);
+            HttpContext.Session.SetString("UserPassword", model.Password);
+
+            var token = await _tokenService.GenerateJwtToken(user, TimeSpan.FromMinutes(600));
+
+            return Ok(new { Token = token });
         }
 
         [HttpGet]
@@ -159,15 +130,11 @@ namespace KinoUG.Server.Controllers
         {
             var email = HttpContext.Session.GetString("UserEmail");
             var password = HttpContext.Session.GetString("userName");
-            try
-            {
-                var email = HttpContext.Session.GetString("UserEmail");
-                var password = HttpContext.Session.GetString("UserPassword");
 
-                if (string.IsNullOrEmpty(email))
-                {
-                    return Unauthorized("Session has expired or user not logged in.");
-                }
+            if (string.IsNullOrEmpty(email))
+            {
+                return Unauthorized("Session has expired or user not logged in.");
+            }
 
             return Ok(new
             {
@@ -254,17 +221,6 @@ namespace KinoUG.Server.Controllers
 
             Życzymy miłego dnia,
             KinoUG";
-        }
-                return Ok(new
-                {
-                    Email = email,
-                    Password = password
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Session info failed: {ex.Message}");
-            }
         }
     }
 }

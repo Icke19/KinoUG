@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims; 
+using System.Security.Claims;
 
 namespace KinoUG.Server.Controllers
 {
@@ -25,21 +25,19 @@ namespace KinoUG.Server.Controllers
         }
 
         [HttpGet]
-        [Route("GetTickets")]
-        [Authorize(Roles = Roles.Admin)]
+        [Route("GetTicket")]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
             return await _context.Tickets.ToListAsync();
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "User,Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "User, Admin")]
         public async Task<IActionResult> AddTicket(AddTicketDTO addTicketDTO)
         {
             try
             {
                 string userEmail = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
-                // Check if the user exists
                 var user = await _userManager.FindByEmailAsync(userEmail);
                 if (user == null)
                 {
@@ -110,28 +108,20 @@ namespace KinoUG.Server.Controllers
         }
 
         [HttpPost("cancel/{ticketId}")]
-        
         public async Task<IActionResult> CancelTicket(int ticketId)
         {
-            try
-            {
-                var ticket = await _context.Tickets
+            var ticket = await _context.Tickets
                 .Include(t => t.Seat)
                 .FirstOrDefaultAsync(t => t.Id == ticketId);
 
-                if (ticket == null)
-                {
-                    return NotFound("Ticket not found.");
-                }
-
-                _context.Tickets.Remove(ticket);
-                await _context.SaveChangesAsync();
-                return Ok("Ticket has been canceled and seat freed.");
-            }
-            catch (Exception e)
+            if (ticket == null)
             {
-                return BadRequest(e.Message);
+                return NotFound("Ticket not found.");
             }
+
+            _context.Tickets.Remove(ticket);
+            await _context.SaveChangesAsync();
+            return Ok("Ticket has been canceled and seat freed.");
         }
 
     }

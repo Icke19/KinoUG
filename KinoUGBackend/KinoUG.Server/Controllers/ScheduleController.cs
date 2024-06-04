@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KinoUG.Server.Controllers
 {
-    public class ScheduleController:BaseApiController
+    public class ScheduleController : BaseApiController
     {
         private readonly DataContext _context;
         public ScheduleController(DataContext context)
@@ -15,69 +15,47 @@ namespace KinoUG.Server.Controllers
             _context = context;
         }
 
-
-
-
         [HttpGet("all")]
-        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult<List<MinScheduleDTO>>> GetScheduleList()
         {
-            try
-            {
-                var schedules = await _context.Schedules
+            var schedules = await _context.Schedules
                 .Include(s => s.Movie)
                 .OrderBy(s => s.Id)
-                .Skip(3)
                 .ToListAsync();
-                return schedules.Select(s => new MinScheduleDTO
-                {
-                    Id = s.Id,
-                    MovieTitle = s.Movie.Title,
-                    Date = s.Date,
-                    Image = s.Movie.Image,
-                    Description = s.Movie.Description
-                }).ToList();
-            }
-            catch (System.Exception)
+            return schedules.Select(s => new MinScheduleDTO
             {
-                return BadRequest("Error");
-            }
+                Id = s.Id,
+                MovieTitle = s.Movie.Title,
+                Date = s.Date,
+                Image = s.Movie.Image,
+                Description = s.Movie.Description
+            }).ToList();
         }
 
         [HttpGet("latest6")]
-        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult<List<MinScheduleDTO>>> GetScheduleListOf6()
         {
-           try
-            {
-                var schedules = await _context.Schedules
-               .Include(s => s.Movie)
-               .OrderByDescending(s => s.Date)
-               .Take(6)
-               .ToListAsync();
+            var schedules = await _context.Schedules
+                .Include(s => s.Movie)
+                .OrderByDescending(s => s.Date)
+                .Take(6)
+                .ToListAsync();
 
-                return schedules.Select(s => new MinScheduleDTO
-                {
-                    Id = s.Id,
-                    MovieTitle = s.Movie.Title,
-                    Date = s.Date,
-                    Image = s.Movie.Image
-                }).ToList();
-            }
-           catch (System.Exception)
+            return schedules.Select(s => new MinScheduleDTO
             {
-                return BadRequest("Error");
-            }
+                Id = s.Id,
+                MovieTitle = s.Movie.Title,
+                Date = s.Date,
+                Image = s.Movie.Image
+            }).ToList();
         }
 
 
 
         [HttpGet("{id}")]
-        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult<ScheduleDTO>> GetSchedule(int id)
         {
-           
-             var tickets = await _context.Tickets
+            var tickets = await _context.Tickets
                 .Include(t => t.Seat)
                 .Where(t => t.ScheduleId == id)
                 .ToListAsync();
@@ -97,9 +75,7 @@ namespace KinoUG.Server.Controllers
                     Id = schedule.Movie.Id,
                     Title = schedule.Movie.Title,
                     Description = schedule.Movie.Description,
-                    Image = schedule.Movie.Image,
-                    
-                    
+                    Image = schedule.Movie.Image
                 },
                 Seats = schedule.Hall.Seats.Select(s => new SeatDTO
                 {
@@ -107,15 +83,12 @@ namespace KinoUG.Server.Controllers
                     Row = s.Row,
                     Column = s.Column,
                     IsReserved = tickets.Select(t => t.SeatId).Contains(s.Id)
-                }).OrderBy(s=>s.Id).ToList(),
+                }).OrderBy(s => s.Id).ToList(),
                 Date = schedule.Date,
             };
-            
-            
         }
-       
+
         [HttpPost]
-        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult<ScheduleDTO>> AddSchedule(AddScheduleDTO addScheduleDTO)
         {
             var schedule = new Schedule
@@ -127,13 +100,13 @@ namespace KinoUG.Server.Controllers
             _context.Schedules.Add(schedule);
             await _context.SaveChangesAsync();
             var newSchedule = await _context.Schedules
-                
+
                 .Include(s => s.Movie)
                 .IgnoreAutoIncludes()
                 .Include(s => s.Hall)
                 .ThenInclude(h => h.Seats)
                 .FirstOrDefaultAsync(s => s.Id == schedule.Id);
-            
+
             return new ScheduleDTO
             {
                 Id = newSchedule.Id,
@@ -153,6 +126,5 @@ namespace KinoUG.Server.Controllers
                 }).ToList()
             };
         }
-        
     }
 }
