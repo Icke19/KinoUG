@@ -27,8 +27,8 @@ Moje Kino to internatywna aplikacja kina umożliwiająca przeglądanie dostępny
 
 | ID  | NAZWA                                   | OPIS                                                            | PRIORYTET | KATEGORIA |
 | --- | --------------------------------------- | --------------------------------------------------------------- | --------- | --------- |
-| 1   | Cache'owanie treści na stronie           | Poprawa wydajności serwisu                                       | 3         | nf        |
-| 2   | Responsywność                           | Dostosowanie widoku do różnych rozmiarów urządzeń                | 2         | nf        |
+| 1   | Responsywność                           | Dostosowanie widoku do różnych rozmiarów urządzeń                | 2         | nf        |
+| 2   | Cache'owanie treści na stronie           | Poprawa wydajności serwisu                                       | 3         | nf        |
 | 3  | Dark mode           | Tryb ciemny dla strony                                      | 3         | nf        |
 
 ## Scenariusze testowe
