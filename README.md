@@ -17,8 +17,8 @@ Moje Kino to internatywna aplikacja kina umożliwiająca przeglądanie dostępny
 | 1   | Widok harmonogramów oraz seansów                           | Użytkownik ma możliwość wyświetlania tytułu oraz godziny seansu                           | 1         | f         |
 | 2   | Zarządzanie Filmami                                        | Admin ma możliwość edycji, usuwania i dodawania filmów                                     | 1         | f         |
 | 3   | Zarządzanie repertuarami                                   | Admin ma możliwość edycji, usuwania i dodawania repertuarów                                | 1         | f         |
-| 4   | Dwie role                                                  | Aplikacja będzie obejmować role administratora i zwykłego użytkownika                      | 2         | f         |
-| 5   | Rezerwacja miejsca                                         | Możliwość wyboru konkretnego miejsca w sali kinowej                                       | 1         | f         |
+| 4   | Rezerwacja miejsca                                         | Możliwość wyboru konkretnego miejsca w sali kinowej                                       | 1         | f         |
+| 5   | Dwie role                                                  | Aplikacja będzie obejmować role administratora i zwykłego użytkownika                      | 2         | f         |
 | 6   | Uwierzytelnianie użytkownika i administratora              | Użytkownicy i administratorzy mają możliwość zarejestrowania się, zalogowania się oraz wylogowania się | 2         | f         |
 | 7   | Zarządzanie użytkownikami              | Admin będzie mógł widzieć wszystkich użytkowników oraz usuwać ich     | 3         | f         |
 
