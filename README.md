@@ -6,6 +6,7 @@
 - Patryk Sękielewski
 - Igor Puścikowski 
 - Cezary Sawicki
+- Jakub Karolewicz
 
 
 Moje Kino to internatywna aplikacja kina umożliwiająca przeglądanie dostępnych filmów, rezerwację biletów oraz dodawanie ich do koszyka. Kluczowe funkcje to: przeglądanie repertuaru kinowego, rezerwacja biletów na wybrane seanse oraz zarządzanie rezerwacjami w koszyku przed dokonaniem zakupu. Aplikacja Idealna dla miłośników kina, którzy cenią sobie wygodny i szybki sposób na zakup biletów.
